@@ -2,6 +2,7 @@ package com.flc.messageria.jms;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //import java.util.ArrayList;
@@ -27,12 +28,16 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class Consumer {
 
-    private List<Person> persons = new ArrayList<>();
-   
+    //	private List<Person> persons = new ArrayList<>();
+	 List<String> messages = Collections.synchronizedList(new ArrayList<>());
+	
+	
     @Autowired
     PersonRepository personRepository;
-
+    
+   
     @JmsListener( destination = "${activemq.name}" )
+    
     public void listen(String mensagem) {
         System.out.println(mensagem);
         Person person = new Person();
